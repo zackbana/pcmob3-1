@@ -32,20 +32,12 @@ return (
   <View style={styles.container}>
     <TouchableOpacity
       style={{ height: 40, justifyContent: "center" }}
-      onPress={addColor}
-    >
+      onPress={addColor}>
       <Text style={{ color: "red" }}>Add colour</Text>
     </TouchableOpacity>
     <FlatList style={styles.list} data={colorArray} renderItem={renderItem} />
   </View>
 );
-
-
-//  return (
-//    <View style={styles.container}>
-//      <FlatList style={styles.list} data={colorArray} renderItem={renderItem} />
-//    </View>
-//  );
 }
 
 const Stack = createStackNavigator();
