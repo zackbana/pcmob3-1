@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, View, FlatList } from "react-native";
+import { Button, StyleSheet, Text, View, FlatList, Alert } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import BlockRGB from "./components/BlockRGB";
@@ -14,6 +14,7 @@ function HomeScreen({ navigation }) {
     headerRight: () => <Button onPress={addColor} title="Add Color"/>,
   });
 });
+
 
  function renderItem({ item }) {
    return (
@@ -64,6 +65,20 @@ function DetailsScreen({ route }) {
  // Destructure this object so we don't have to type route.params.red etc
  const { red, green, blue } = route.params;
 
+ const createTwoButtonAlert = () =>
+    Alert.alert(
+      "RGB Colors",
+      "RGB (Red, Green and Blue) is the color space for digital images. Use the RGB color mode if your design is supposed to be displayed on any kind of screen. A light source within a device creates any color you need by mixing red, green and blue and varying their intensity.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
+
  return (
    <View
      style={[
@@ -75,6 +90,9 @@ function DetailsScreen({ route }) {
        <Text style={styles.detailText}>Red: {red}</Text>
        <Text style={styles.detailText}>Green: {green}</Text>
        <Text style={styles.detailText}>Blue: {blue}</Text>
+       <Text style={styles.detailText}>Total RGB: {blue + green + red}</Text>
+       <Button title={"What does this mean?"} onPress={createTwoButtonAlert} />
+      {/* <Button title={"What is the total?"} onPress={addTotal} /> */}
      </View>
    </View>
  );
@@ -99,12 +117,15 @@ const styles = StyleSheet.create({
    backgroundColor: "#fff",
    alignItems: "center",
    justifyContent: "center",
+   padding: 20,
  },
  list: {
    width: "100%",
  },
  detailText: {
-   fontSize: 24,
+   fontSize: 30,
    marginBottom: 20,
+   textDecorationColor: "yellow",
+
  },
 });
