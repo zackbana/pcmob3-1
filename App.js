@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import BlockRGB from "./components/BlockRGB";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Dimensions } from "react-native";
 
 function HomeScreen({ navigation }) {
  const [colorArray, setColorArray] = useState([]);
@@ -14,7 +15,6 @@ function HomeScreen({ navigation }) {
     headerRight: () => <Button onPress={addColor} title="Add Color"/>,
   });
 });
-
 
  function renderItem({ item }) {
    return (
@@ -46,15 +46,9 @@ function HomeScreen({ navigation }) {
    <View style={styles.container}>
      <TouchableOpacity
        style={{ height: 40, justifyContent: "center" }}
-       onPress={addColor}
-     >
-       <Text style={{ color: "red" }}>Add colour</Text>
-     </TouchableOpacity>
-     <TouchableOpacity
-       style={{ height: 40, justifyContent: "center" }}
        onPress={removeAll}
      >
-       <Text style={{ color: "blue" }}>Remove All</Text>
+       <Text style={{ color: "blue" }}>Reset</Text>
      </TouchableOpacity>
      <FlatList style={styles.list} data={colorArray} renderItem={renderItem} />
    </View>
@@ -62,9 +56,7 @@ function HomeScreen({ navigation }) {
 }
 
 function DetailsScreen({ route }) {
- // Destructure this object so we don't have to type route.params.red etc
  const { red, green, blue } = route.params;
-
  const createTwoButtonAlert = () =>
     Alert.alert(
       "RGB Colors",
@@ -92,7 +84,6 @@ function DetailsScreen({ route }) {
        <Text style={styles.detailText}>Blue: {blue}</Text>
        <Text style={styles.detailText}>Total RGB: {blue + green + red}</Text>
        <Button title={"What does this mean?"} onPress={createTwoButtonAlert} />
-      {/* <Button title={"What is the total?"} onPress={addTotal} /> */}
      </View>
    </View>
  );
@@ -117,10 +108,11 @@ const styles = StyleSheet.create({
    backgroundColor: "#fff",
    alignItems: "center",
    justifyContent: "center",
-   padding: 20,
+  
  },
  list: {
    width: "100%",
+   height: "100%"
  },
  detailText: {
    fontSize: 30,
